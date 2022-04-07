@@ -1,0 +1,287 @@
+<UserControl x:Class = "ZPW.View.Kontrolki.ViewMapa" 
+   xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+   xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" 
+   xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"  
+   xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"  
+   mc:Ignorable = "d" d:DesignHeight = "300" d:DesignWidth = "300"
+    xmlns:vm="clr-namespace:ZPW.ViewModel" 
+    d:DataContext="{d:DesignInstance Type=vm:ZPW}"
+    xmlns:controls="clr-namespace:ZPW.View.Kontrolki"
+    >
+
+
+    <Grid DataContext="{StaticResource zpw}">
+        <ScrollViewer x:Name="TheScroll" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            
+            
+            <Viewbox x:Name="TheView" Width="1500">
+            <Border Background="White" Padding="3,3,3,3" CornerRadius="5" BorderBrush="Darkgray" BorderThickness="1">
+                <Grid>
+                    <Image x:Name="MapaXY" Source="/View/Pictures/Map.jpg"/>
+                    <Canvas Margin="{Binding ElementName=TheView, Path=Width, Converter={StaticResource MarginConverter}, ConverterParameter='E'}">
+                        <Ellipse 
+                            Fill="Yellow" 
+                            Width="{Binding ElementName=TheView, Path=Width, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PinSizeConverter}, ConverterParameter='Ellipse'}" 
+                            Height="{Binding ElementName=TheView, Path=Width, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PinSizeConverter}, ConverterParameter='Ellipse'}" 
+                            Opacity="0.5">
+                            <Ellipse.Style>
+                                <Style TargetType="Ellipse">
+                                    <Setter Property="Canvas.Left" Value="{Binding Path=SelectedZgłoszenie.MiejsceX}">
+                                        <!--Setter.Value>
+                                            <MultiBinding Converter="{StaticResource MapPosConverter}" ConverterParameter='XE'>
+                                                <Binding Path="SelectedZgłoszenie.MiejsceX" />
+                                                <Binding ElementName="MapaXY" Path="ActualWidth"/>
+                                                <Binding ElementName="TheView" Path="Width"/>
+                                            </MultiBinding>
+                                        </Setter.Value-->
+                                    </Setter>
+                                    <Setter Property="Canvas.Top" Value="{Binding Path=SelectedZgłoszenie.MiejsceY}">
+                                        <!--Setter.Value>
+                                            <MultiBinding Converter="{StaticResource MapPosConverter}" ConverterParameter='YE'>
+                                                <Binding Path="SelectedZgłoszenie.MiejsceY" />
+                                                <Binding ElementName="MapaXY" Path="ActualHeight"/>
+                                                <Binding ElementName="TheView" Path="Width"/>
+                                            </MultiBinding>
+                                        </Setter.Value-->
+                                    </Setter>
+                                    <Setter Property="Visibility" >
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{StaticResource VisConverter}">
+                                                <Binding Path="CollectionView"/>
+                                                <Binding Path="SelectedZgłoszenie"/>
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Ellipse.Style>
+                        </Ellipse>
+                    </Canvas>
+                    
+                    
+                    <Thumb Cursor="ScrollAll" PreviewMouseWheel="ScrollAll_DragDeltaScroll" DragDelta="ScrollAll_DragDelta" Opacity="0" BorderThickness="0" Width="{Binding ElementName=MapaXY, Path=ActualWidth}" Height="{Binding ElementName=MapaXY, Path=ActualHeight}"/>
+                    
+                    <ItemsControl ItemsSource="{Binding CollectionView, UpdateSourceTrigger=PropertyChanged}" VirtualizingStackPanel.IsVirtualizing="True">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas x:Name="Canva"  Margin="{Binding ElementName=TheView, Path=Width, Converter={StaticResource MarginConverter}, ConverterParameter='P'}"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="Canvas.Left" Value="{Binding Path=MiejsceX}">
+                                    <!--Setter.Value>
+                                        <MultiBinding Converter="{StaticResource MapPosConverter}" ConverterParameter='X' >
+                                            <Binding Path="MiejsceX" />
+                                            <Binding ElementName="MapaXY" Path="ActualWidth"/>
+                                            <Binding ElementName="TheView" Path="Width"/>
+                                        </MultiBinding>
+                                    </Setter.Value-->
+                                </Setter>
+                                <Setter Property="Canvas.Top" Value="{Binding Path=MiejsceY}">
+                                    <!--Setter.Value>
+                                        <MultiBinding Converter="{StaticResource MapPosConverter}" ConverterParameter='Y' >
+                                            <Binding Path="MiejsceY" />
+                                            <Binding ElementName="MapaXY" Path="ActualHeight"/>
+                                            <Binding ElementName="TheView" Path="Width"/>
+                                        </MultiBinding>
+                                    </Setter.Value-->
+                                </Setter>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image 
+                                MouseMove="Pin_LeftClick"
+                                Tag="{Binding Path=Numer}"
+                                PreviewMouseWheel="ScrollAll_DragDeltaScroll"
+                                Height="{Binding ElementName=TheView, Path=Width, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource PinSizeConverter}, ConverterParameter=''}" 
+                                Style="{StaticResource Pin}"
+                                x:Name="PinDuży">
+                                    <Image.ToolTip>
+                                        <ToolTip Style="{StaticResource TolTipGridBackground}">
+                                            <Grid Width="400">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="auto" />                    
+                                                    <RowDefinition Height="*" />                    
+                                                </Grid.RowDefinitions>
+                                                <Image Grid.Column="0" Grid.Row="0">
+                                                    <Image.Style>
+                                                        <Style TargetType="{x:Type Image}">
+                                                            <Setter Property="Source" Value="{Binding Path=ZdjęciePath, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileToFullPathConverter}, ConverterParameter='Small'}" />
+                                                            <Setter Property="Margin" Value="5" />
+                                                            <Setter Property="Cursor" Value="Hand" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Path=ZdjęciePath, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileToFullPathConverter}}" Value="{x:Null}">
+                                                                    <Setter Property="Source" Value="{x:Null}" />
+                                                                    <Setter Property="Margin" Value="0" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
+                                                </Image> 
+                                                
+                                                <Grid Grid.Column="0" Grid.Row="1" Margin="0,0,0,5">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />                    
+                                                        <RowDefinition Height="Auto" />                    
+                                                        <RowDefinition Height="Auto" />                    
+                                                        <RowDefinition Height="Auto" />                    
+                                                        <RowDefinition Height="Auto" />                    
+                                                        <RowDefinition Height="Auto" />                    
+                                                    </Grid.RowDefinitions>
+                                                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                                                        <TextBlock Text="Numer zgłoszenia: " FontWeight="Bold"/>
+                                                        <TextBlock Text="{Binding Path=Numer, UpdateSourceTrigger=PropertyChanged}"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="0" Grid.Row="1"  Orientation="Horizontal">
+                                                        <TextBlock Text="Dział: " FontWeight="Bold"/>
+                                                        <TextBlock Text="{Binding Path=MiejsceZdarzenia, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextWrapping="Wrap" FontWeight="Normal"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="0" Grid.Row="2"  Orientation="Horizontal">
+                                                        <TextBlock Text="Miejsce: " FontWeight="Bold"/>
+                                                        <TextBlock Text="{Binding Path=Miejsce, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextWrapping="Wrap" FontWeight="Normal"/>
+                                                    </StackPanel>
+                                                    <StackPanel Grid.Column="0" Grid.Row="3" >
+                                                        <TextBlock Text="Opis zagrożenia: " FontWeight="Bold"/>
+                                                        <TextBlock Text="{Binding Path=Zagrożenie, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextWrapping="Wrap" FontWeight="Normal"/>
+                                                    </StackPanel>                                                        
+                                                    
+                                                    <StackPanel Grid.Column="0" Grid.Row="4" >
+                                                        <TextBlock Text="Proponowane działania: " FontWeight="Bold"/>
+                                                        <TextBlock Text="{Binding Path=Działania, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextWrapping="Wrap" FontWeight="Normal"/>
+                                                    </StackPanel>                                                        
+                                                    <StackPanel Grid.Column="0" Grid.Row="5" >
+                                                        <TextBlock Text="Odpowiedzialny: " FontWeight="Bold"/>
+                                                        <TextBlock Text="{Binding Path=Odpowiedzialny, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextWrapping="Wrap" FontWeight="Normal"/>
+                                                    </StackPanel>
+                                                </Grid>
+                                        </Grid>
+                                        </ToolTip>
+                                    </Image.ToolTip>
+                                </Image>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+            </Viewbox>
+            
+        </ScrollViewer>
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Border BorderThickness="0,0,1,1" BorderBrush="Darkgray" Background="AliceBlue" CornerRadius="5,0,5,0" Margin="-3,-3,0,0" SnapsToDevicePixels="True">
+                <Grid>
+                        <Grid>
+                        <Image x:Name="MapaMini" Source="/View/Pictures/MiniMap.jpg" Width="450" Stretch="Fill" Margin="3"/>
+                        
+                        <ItemsControl ItemsSource="{Binding CollectionView, UpdateSourceTrigger=PropertyChanged}"  Margin="3">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas x:Name="CanvaMini" Margin="-3,-10,0,0">
+                                        <Canvas.RenderTransform>
+                                            <ScaleTransform ScaleX="0.2685" ScaleY="0.2685" />
+                                        </Canvas.RenderTransform>
+                                    </Canvas>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Canvas.Left" Value="{Binding Path=MiejsceX}">
+                                        <!--Setter.Value>
+                                            <MultiBinding Converter="{StaticResource MapPosConverter}"  ConverterParameter='XM' >
+                                                <Binding Path="MiejsceX" />
+                                                <Binding ElementName="MapaMini" Path="ActualWidth"/>
+                                                <Binding ElementName="TheView" Path="Width"/>
+                                            </MultiBinding>
+                                        </Setter.Value-->
+                                    </Setter>
+                                    <Setter Property="Canvas.Top" Value="{Binding Path=MiejsceY}">
+                                        <!--Setter.Value>
+                                            <MultiBinding Converter="{StaticResource MapPosConverter}"  ConverterParameter='YM' >
+                                                <Binding Path="MiejsceY" />
+                                                <Binding ElementName="MapaMini" Path="ActualHeight"/>
+                                                <Binding ElementName="TheView" Path="Width"/>
+                                            </MultiBinding>
+                                        </Setter.Value-->
+                                    </Setter>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+                            
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Image x:Name="PinMały" Height="40" Style="{StaticResource Pin}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        
+
+                        <Canvas x:Name="TheObservedCanvas" Margin="5" >
+                            <Border x:Name="TheYellowBorder" Cursor="ScrollAll" Background="Yellow" Opacity="0.25" CornerRadius="3" BorderBrush="Black" BorderThickness="1" SnapsToDevicePixels="true">
+                            <Thumb Cursor="ScrollAll" DragDelta="YellowBorder_DragDelta" Opacity="0" BorderThickness="0" Width="450" Height="253"/>
+                               <Border.Width>
+                                    <MultiBinding Converter="{StaticResource WidhtHeightConverter}" ConverterParameter="H">
+                                        <MultiBinding.Bindings>
+                                            <Binding ElementName="TheView" Path="Width"/>
+                                            <Binding ElementName="TheScroll" Path="ViewportHeight"/>
+                                            <Binding ElementName="TheScroll" Path="ViewportWidth"/>
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Border.Width>
+                                <Border.Height>
+                                    <MultiBinding Converter="{StaticResource WidhtHeightConverter}" ConverterParameter="W">
+                                        <MultiBinding.Bindings>
+                                            <Binding ElementName="TheView" Path="Width"/>
+                                            <Binding ElementName="TheScroll" Path="ViewportHeight"/>
+                                            <Binding ElementName="TheScroll" Path="ViewportWidth"/>
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Border.Height>
+                                <Canvas.Top>
+                                    <MultiBinding Converter="{StaticResource TopLeftConverter}" ConverterParameter="T">
+                                        <MultiBinding.Bindings>
+                                            <Binding ElementName="TheView" Path="Width"/>
+                                            <Binding ElementName="TheScroll" Path="HorizontalOffset"/>
+                                            <Binding ElementName="TheScroll" Path="VerticalOffset"/>
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Canvas.Top>
+                                <Canvas.Left>
+                                    <MultiBinding Converter="{StaticResource TopLeftConverter}" ConverterParameter="L">
+                                        <MultiBinding.Bindings>
+                                            <Binding ElementName="TheView" Path="Width"/>
+                                            <Binding ElementName="TheScroll" Path="HorizontalOffset"/>
+                                            <Binding ElementName="TheScroll" Path="VerticalOffset"/>
+                                        </MultiBinding.Bindings>
+                                    </MultiBinding>
+                                </Canvas.Left>
+                            </Border>
+                        </Canvas>
+                        </Grid>
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+                        <Button Height = "25" Width="25" ToolTip="Powiększ" Click="ButonPowiększ_Click" Margin="3,3,3,0">
+                            <Image Source="/View/Pictures/ZoomIn.png" Height="24" Width="24"></Image>
+                        </Button>
+                        <Button Height = "25" Width="25" ToolTip="Pomniejsz" Click="ButonZmniejsz_Click" Margin="0,3,0,0">
+                            <Image Source="/View/Pictures/ZoomOut.png" Height="24" Width="24"></Image>
+                        </Button>
+                    </StackPanel>   
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <Border x:Name="hideMe" Background="AliceBlue">
+            <TextBox Text="Ładuje..." HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0" Background="AliceBlue"/>
+        </Border> 
+    </Grid>
+</UserControl>
+
+

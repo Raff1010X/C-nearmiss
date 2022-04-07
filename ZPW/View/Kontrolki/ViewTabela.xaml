@@ -1,0 +1,233 @@
+<UserControl x:Class = "ZPW.View.Kontrolki.ViewTabela" 
+   xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+   xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" 
+   xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"  
+   xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"  
+   mc:Ignorable = "d" d:DesignHeight = "300" d:DesignWidth = "300"
+    xmlns:vm="clr-namespace:ZPW.ViewModel" 
+    d:DataContext="{d:DesignInstance Type=vm:ZPW}"
+   >
+
+<!--UserControl.Resources>
+    <vm:BindingProxy x:Key="proxy" Data="{Binding}" />
+</UserControl.Resources>
+Visibility="{Binding Data.CollectionView, Source={StaticResource proxy}, Converter={StaticResource BoolToVisibilityConverter}}" -->
+
+    <Grid x:Name="TabMain" Background="transparent" Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+                
+                <DataGrid 
+                    Style="{StaticResource DataGridStyle}"
+                    ColumnHeaderStyle="{StaticResource HeaderStyle}"
+                    x:Name="ZgłoszeniaGrid" 
+                    SelectedItem="{Binding SelectedZgłoszenie}" 
+                    ItemsSource="{Binding CollectionView, UpdateSourceTrigger=PropertyChanged}"
+                    > 
+
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="50" Header="L.P.">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Numer, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HiglighTB}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="120" Header="Zgłoszono">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=DataZgł, UpdateSourceTrigger=PropertyChanged, StringFormat=d, ConverterCulture=pl-PL}" Style="{StaticResource HiglighTB}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="*" Header="Dział">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=MiejsceZdarzenia, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HiglighTB}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="*" Header="Miejsce">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Miejsce, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HiglighTB}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="*" Header="Zagrożenie">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=RodzajZagrożeń, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HiglighTB}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*" Header="Odpowiedzialny">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Odpowiedzialny, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HiglighTB}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="125" Header="Ryzyko">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=SkutkiSkala, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource HiglighTB}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Width="125" Header="Wykonane">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Wykonane, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolToStringConverter}, ConverterParameter='Tak;Nie'}" Style="{StaticResource HiglighTB}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                    
+                    <DataGrid.RowDetailsTemplate>
+                        <DataTemplate>
+                            <Grid Width="{Binding ElementName=ZgłoszeniaGrid, Path=ActualWidth}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="15"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Image Grid.Column="0" MouseLeftButtonDown="Image_MouseLeftButtonDown">
+                                    <Image.Style>
+                                        <Style TargetType="{x:Type Image}">
+                                            <Setter Property="Source" Value="{Binding Path=ZdjęciePath, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileToFullPathConverter}, ConverterParameter='Small'}" />
+                                            <Setter Property="Height" Value="125" />
+                                            <Setter Property="MaxWidth" Value="125" />
+                                            <Setter Property="Margin" Value="5" />
+                                            <Setter Property="Cursor" Value="Hand" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=ZdjęciePath, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FileToFullPathConverter}}" Value="{x:Null}">
+                                                    <Setter Property="Source" Value="{x:Null}" />
+                                                    <Setter Property="Margin" Value="0" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                                <Grid Grid.Column="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="30"/>
+                                    </Grid.RowDefinitions>
+
+                                    <WrapPanel Grid.Row="0">
+                                        <TextBlock Text="Opis zagrożenia: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Path=Zagrożenie, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextWrapping="Wrap" FontWeight="Normal" Style="{StaticResource HiglighTB}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="1">
+                                        <TextBlock Text="Potencjalne skutki: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Path=SkutkiOpis, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextWrapping="Wrap" FontWeight="Normal" Style="{StaticResource HiglighTB}"/>
+                                    </WrapPanel>
+                                    <WrapPanel Grid.Row="2">
+                                        <TextBlock Text="Proponowane działania: " FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Path=Działania, UpdateSourceTrigger=PropertyChanged}" TextBlock.TextWrapping="Wrap" FontWeight="Normal" Style="{StaticResource HiglighTB}"/>
+                                    </WrapPanel>
+                                    <Grid Grid.Row="3" DataContext="{StaticResource zpw}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="150"/>
+                                        </Grid.ColumnDefinitions>
+                                            <Button Grid.Column="1" Command="{Binding ShowMiniMap}" Margin="0,5,5,5">
+                                                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Image Source="/View/Pictures/Mapa.png" Height="17"/>
+                                                    <TextBlock Text="Pokaż na mapie" FontSize="12"/>
+                                                </WrapPanel>
+                                            </Button>
+                                            <Button Grid.Column="2" Command="{Binding Path=Edytuj}" IsEnabled="{Binding CanEdytujBool}" Margin="0,5,5,5" >
+                                                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Image Source="/View/Pictures/Edycja.png" Height="17"/>
+                                                    <TextBlock Text="Edytuj" FontSize="12"/>
+                                                </WrapPanel>
+                                            </Button>
+                                            <Button Grid.Column="3" Command="{Binding Mailem}" Margin="0,5,5,5" >
+                                                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Image Source="/View/Pictures/Mail.png" Height="17"/>
+                                                    <TextBlock Text="Wyślij mailem" FontSize="12"/>
+                                                </WrapPanel>
+                                            </Button>
+                                            <Button Grid.Column="4" Command="{Binding UpdateZgłoszenie}" Margin="0,5,5,5" IsEnabled="{Binding SelectedZgłoszenie.Wykonane, Converter={StaticResource BoolReverseConverter}}" >
+                                                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Image Source="/View/Pictures/Zgłoś.png" Height="17"/>
+                                                    <TextBlock Text="Zgłoś wykonanie" FontSize="12"/>
+                                                </WrapPanel>
+                                            </Button>                                                    
+                                            <!--<Button Grid.Column="5" Command="{Binding Obserwowane}" Margin="0,5,5,5" >
+                                                <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                    <Image Source="/View/Pictures/DodajObserwowane.png" Height="15"/>
+                                                    <TextBlock Text="Obserwuj" FontSize="12"/>
+                                                </WrapPanel>
+                                            </Button>-->
+
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGrid.RowDetailsTemplate>
+                
+                    <DataGrid.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.Panel>
+                                <ItemsPanelTemplate>
+                                    <DataGridRowsPresenter/>
+                                </ItemsPanelTemplate>
+                            </GroupStyle.Panel>
+                            <GroupStyle.ContainerStyle>
+                                <Style TargetType="{x:Type GroupItem}">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                <Expander IsExpanded="True" Background="AliceBlue" Margin="0,5,0,0">
+                                                    <Expander.Header>
+                                                        <StackPanel Orientation="Horizontal" Margin="0,3,0,3">
+                                                                    <TextBlock Foreground="Black" Text="{Binding Path=Name, Converter={StaticResource BoolToString2Converter}, ConverterParameter='Wykonane;Niewykonane'}"/>
+                                                                    <TextBlock Foreground="Black" Text="- "/>
+                                                                    <TextBlock Foreground="Black" Text="{Binding Path=Items.Count}"/>
+                                                    </StackPanel>
+                                                    </Expander.Header>
+                                                    <Expander.Content>
+                                                        <Border BorderThickness="0,0.75,0,0" BorderBrush="Black">
+                                                            <ItemsPresenter/>
+                                                        </Border>
+                                                    </Expander.Content>
+                                                </Expander>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GroupStyle.ContainerStyle>
+                        </GroupStyle>
+                    </DataGrid.GroupStyle>
+                </DataGrid>
+    
+    <Border Background="AliceBlue" Margin="-1"
+        Visibility="{Binding CollectionView, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource Vis2Converter}}">
+        <TextBox Text="Brak wyników wyszukiwania..." HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0" Background="AliceBlue"/>
+    </Border> 
+    
+    <Border x:Name="hideMe" Background="AliceBlue">
+        <TextBox Text="Ładuje..." HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0" Background="AliceBlue"/>
+    </Border> 
+    </Grid>
+
+</UserControl>

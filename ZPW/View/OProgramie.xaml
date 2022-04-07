@@ -1,0 +1,126 @@
+﻿<Window x:Class="ZPW.View.OProgramie"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="OProgramie" 
+        Height="550" 
+        Width="800"
+        Style="{StaticResource MyWindowStyle}" 
+        
+        ShowInTaskbar="False"
+        Topmost="True"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        >
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18*" />
+            <RowDefinition Height="8*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="40" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+
+            <Grid.Background>
+                <ImageBrush ImageSource="/View/Pictures/Glass.png" Stretch="UniformToFill"/>
+            </Grid.Background>  
+            <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                <Image Source="/View/Pictures/trend-glass-logo.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" RenderOptions.BitmapScalingMode="Fant"></Image>
+                <TextBlock Text="Rejestr zagrożeń i zdarzeń potencjalnie wypadkowych" FontSize="21" Style="{StaticResource ShadowTB}"  Margin="10,0,0,0"/>
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0"  Background="#104068">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <Grid Grid.Row="0" Grid.Column="0"  Background="White" Margin="1,0,1,1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="1" Background="AliceBlue">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />                       
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock FontSize="13" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Center" Text="Rejestr zagrożeń i zdarzeń potencjalnie wypadkowych - Wersja 0.4.0 - 26.05.2021 - rafal.kowalczyk@trendglass.pl">
+                    </TextBlock>                    
+                     <TextBlock FontSize="13" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                        <Span xml:space="preserve"><Run>Font style: </Run><Hyperlink NavigateUri="https://fonts.google.com/specimen/Montserrat" RequestNavigate="Hyperlink_RequestNavigate">Montserrat</Hyperlink><Run></Run></Span>
+                    </TextBlock>                    
+                    <TextBlock FontSize="13" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                        <Span xml:space="preserve"><Run>Code editor: </Run><Hyperlink NavigateUri="https://code.visualstudio.com/" RequestNavigate="Hyperlink_RequestNavigate">Visual Studio Code 1.57.1</Hyperlink><Run></Run></Span>
+                    </TextBlock>                    
+                    <TextBlock FontSize="13" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                        <Span xml:space="preserve"><Run>Build apps - SDK: </Run><Hyperlink NavigateUri="https://dotnet.microsoft.com/download/dotnet/5.0" RequestNavigate="Hyperlink_RequestNavigate">SDK 5.0.301</Hyperlink><Run></Run></Span>
+                    </TextBlock>                    
+                    <TextBlock FontSize="13" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                        <Span xml:space="preserve"><Run>Micro-ORM: </Run><Hyperlink NavigateUri="https://www.nuget.org/packages/Dapper/" RequestNavigate="Hyperlink_RequestNavigate">Dapper 2.0.90</Hyperlink><Run></Run></Span>
+                    </TextBlock>                    
+                    <TextBlock FontSize="13" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" VerticalAlignment="Center">
+                        <Span xml:space="preserve"><Run>SQLite database engine: </Run><Hyperlink NavigateUri="https://www.nuget.org/packages/System.Data.SQLite/" RequestNavigate="Hyperlink_RequestNavigate">System.Data.SQLite 1.0.114</Hyperlink><Run></Run></Span>
+                    </TextBlock>                    
+                    <TextBlock FontSize="13" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                        <Span xml:space="preserve"><Run>Icons: </Run><Hyperlink NavigateUri="https://fonts.google.com/icons" RequestNavigate="Hyperlink_RequestNavigate">Google Fonts library</Hyperlink><Run></Run></Span>
+                    </TextBlock>                    
+                    <TextBlock FontSize="13" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                        <Span xml:space="preserve"><Run>Charts: </Run><Hyperlink NavigateUri="https://lvcharts.net/" RequestNavigate="Hyperlink_RequestNavigate">LiveCharts</Hyperlink><Run></Run></Span>
+                    </TextBlock> 
+
+                    
+                     <Button Grid.Column="2" Grid.Row="6" Grid.RowSpan="2" Content="Zamknij" x:Name="ZamknijButton" Click="ZamknijButton_Click"/>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    <Border Grid.Row="1" Grid.Column="0" BorderBrush="#104068" CornerRadius="0,0,6,6" BorderThickness="1,0,1,1"/>
+    <Border Grid.Row="1" Grid.Column="0" BorderBrush="#104068" CornerRadius="0,0,7,7" BorderThickness="1,0,1,1"/>
+
+
+    </Grid>
+
+</Window>

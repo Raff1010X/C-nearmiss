@@ -1,0 +1,301 @@
+<UserControl x:Class = "ZPW.View.Kontrolki.Menu1" 
+   xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+   xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" 
+   xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"  
+   xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"  
+   mc:Ignorable = "d" d:DesignHeight = "300" d:DesignWidth = "300"
+	   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:controls="clr-namespace:ZPW.View.Kontrolki">
+
+   <Grid Background="White">
+      <Grid.ColumnDefinitions>
+         <ColumnDefinition Width="45" />
+         
+         <ColumnDefinition Width="56" />
+         <ColumnDefinition Width="45" />
+         <ColumnDefinition Width="45" />
+
+         <ColumnDefinition Width="56" />                    
+         <ColumnDefinition Width="45" />  
+         <ColumnDefinition Width="45" />
+                              
+         <ColumnDefinition Width="56" />                    
+         <ColumnDefinition Width="45" />                    
+         <ColumnDefinition Width="*" />
+
+         <ColumnDefinition Width="45" />  
+         <ColumnDefinition Width="45" />  
+         <ColumnDefinition Width="45" />  
+         <ColumnDefinition Width="45" />  
+         <ColumnDefinition Width="45" />  
+         <ColumnDefinition Width="45" />  
+         
+         <ColumnDefinition Width="56" />                   
+         <ColumnDefinition Width="45" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+         <RowDefinition Height="22" />
+         <RowDefinition Height="*" />
+      </Grid.RowDefinitions>               
+         
+      <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="18" Margin="5,0,5,0">
+
+      <MenuItem Header="Zgłoszenie">
+         <MenuItem Header="Dodaj nowe zgłoszenie" IsCheckable="false" Command="{Binding NoweZgłoszenie}">
+                  <MenuItem.Icon>
+                  <Image Source="/View/Pictures/New.png" Height="18" Width="18"></Image>
+                  </MenuItem.Icon>
+         </MenuItem>  
+         <Separator/>                        
+         <MenuItem Header="Edytuj" IsCheckable="false" Command="{Binding Path=Edytuj}" IsEnabled="{Binding CanEdytujBool}">
+                  <MenuItem.Icon>
+                  <Image Source="/View/Pictures/Edycja.png" Height="18" Width="18"></Image>
+                  </MenuItem.Icon>
+         </MenuItem>
+            <MenuItem Header="Wyślij mailem" IsCheckable="false" Command="{Binding Mailem}" IsEnabled="{Binding CanEdytujBool}">
+                  <MenuItem.Icon>
+                  <Image Source="/View/Pictures/Mail.png" Height="18" Width="18"></Image>
+                  </MenuItem.Icon>
+         </MenuItem>                     
+         <MenuItem x:Name="miZgłoś" Header="Zgłoś wykonanie" IsCheckable="false" IsEnabled="{Binding CanEdytujBool}"> 
+                  <MenuItem.Icon>
+                  <Image Source="/View/Pictures/Zgłoś.png" Height="18" Width="18"></Image>
+                  </MenuItem.Icon>
+         </MenuItem>
+         <!--<MenuItem Header="Dodaj/usuń z obserwowanych" IsCheckable="false" Command="{Binding Obserwowane}">
+                  <MenuItem.Icon>
+                  <Image Source="/View/Pictures/DodajObserwowane.png" Height="18" Width="18"></Image>
+                  </MenuItem.Icon>
+         </MenuItem>-->
+      </MenuItem>
+
+      <MenuItem Header="Dane">
+         
+         <MenuItem Header="Moje zgłoszenia" IsCheckable="false" Command="{Binding PokażMoje}">
+                  <MenuItem.Icon>
+                  <Image Style="{StaticResource Moje-zgłoszenia}"></Image>
+                  </MenuItem.Icon>
+         </MenuItem>                          
+         <MenuItem Header="Obserwowane zgłoszenia" IsCheckable="false" Command="{Binding PokażObserwowane}">
+                  <MenuItem.Icon>
+                  <Image Style="{StaticResource Obserwowane-zgłoszenia}"></Image>
+                  </MenuItem.Icon>
+         </MenuItem> 
+
+         <MenuItem Header="Filtruj">
+                  <MenuItem.Icon>
+                  <Image Style="{StaticResource Filter-zgłoszenia}" Height="18" Width="18"></Image>
+                  </MenuItem.Icon>
+                     <MenuItem Header="Nowy filtr" Command="{Binding Filtruj}" CommandParameter="Nowy filtr" IsCheckable="false">
+                        <MenuItem.Icon>
+                           <Image Source="/View/Pictures/NowyFiltr.png" Height="18" Width="18"></Image>
+                        </MenuItem.Icon> 
+                     </MenuItem>
+                     <MenuItem Header="Wyczyść filtrowanie" Command="{Binding Filtruj}" CommandParameter="Wyczyść filtrowanie" IsCheckable="false">
+                        <MenuItem.Icon>
+                           <Image Source="/View/Pictures/UsuńFiltr.png" Height="18" Width="18"></Image>
+                        </MenuItem.Icon>                      
+                     </MenuItem>
+         </MenuItem>
+
+         <Separator/> 
+
+         <MenuItem Header="Grupuj">
+                  <MenuItem.Icon>
+                  <Image Source="/View/Pictures/Group.png" Height="18" Width="18"></Image>
+                  </MenuItem.Icon>
+                  <MenuItem Header="Nie grupuj" Command="{Binding Grupuj}" CommandParameter="" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter=''}"/>
+                  <Separator />
+                  <MenuItem Header="Grupuj wg działów" Command="{Binding Grupuj}" CommandParameter="MiejsceZdarzenia" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='MiejsceZdarzenia'}"/>
+                  <MenuItem Header="Grupuj wg odpowiedzialnych" Command="{Binding Grupuj}" CommandParameter= "Odpowiedzialny" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='Odpowiedzialny'}"/>
+                  <MenuItem Header="Grupuj wg wykonania działań" Command="{Binding Grupuj}" CommandParameter="Wykonane" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='Wykonane'}"/>
+                  <MenuItem Header="Grupuj wg ryzyka" Command="{Binding Grupuj}" CommandParameter="SkutkiSkala" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='SkutkiSkala'}"/>
+                  <MenuItem Header="Grupuj wg rodzaju zagrożeń" Command="{Binding Grupuj}" CommandParameter="RodzajZagrożeń" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='RodzajZagrożeń'}"/>
+         </MenuItem>
+
+         <MenuItem Header="Sortuj">
+                  <MenuItem.Icon>
+                  <Image Source="/View/Pictures/Sort.png" Height="18" Width="18"></Image>
+                  </MenuItem.Icon>                            
+                  <MenuItem Header="Rosnąco" Command="{Binding Sortuj}" CommandParameter="Rosnąco" IsCheckable="true" IsChecked="{Binding AscSort, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                  <MenuItem Header="Malejąco" Command="{Binding Sortuj}" CommandParameter="Malejąco" IsCheckable="true" IsChecked="{Binding AscSort, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolReverseConverter}}"/>
+                  <Separator />                        
+                  <MenuItem Header="Sortuj wg daty zgłoszenia" Command="{Binding Sortuj}" CommandParameter="DataZgł" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='DataZgł'}"/>
+                  <MenuItem Header="Sortuj wg działów" Command="{Binding Sortuj}" CommandParameter="MiejsceZdarzenia" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='MiejsceZdarzenia'}"/>
+                  <MenuItem Header="Sortuj wg odpowiedzialnych" Command="{Binding Sortuj}" CommandParameter= "Odpowiedzialny" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='Odpowiedzialny'}"/>
+                  <MenuItem Header="Sortuj wg wykonania działań" Command="{Binding Sortuj}" CommandParameter="Wykonane" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='Wykonane'}"/>
+                  <MenuItem Header="Sortuj wg ryzyka" Command="{Binding Sortuj}" CommandParameter="SkutkiSkala" IsCheckable="true"  IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='SkutkiSkala'}"/>
+                  <MenuItem Header="Sortuj wg rodzaju zagrożeń" Command="{Binding Sortuj}" CommandParameter="RodzajZagrożeń" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='RodzajZagrożeń'}"/>
+         </MenuItem>
+      </MenuItem>
+      
+         <MenuItem Header="Widok">
+                  <MenuItem Header="Tabela" IsCheckable="false" Command="{Binding ViewChange}" CommandParameter="Tabela">
+                  <MenuItem.Icon>
+                     <Image Style="{StaticResource Tabela}" Height="18" Width="18"></Image>
+                  </MenuItem.Icon> 
+                  </MenuItem>
+                  <MenuItem Header="Lista" IsCheckable="false" Command="{Binding ViewChange}" CommandParameter="Lista">
+                  <MenuItem.Icon>
+                     <Image Style="{StaticResource Lista}" Height="18" Width="18"></Image>
+                  </MenuItem.Icon> 
+                  </MenuItem>
+                  <MenuItem Header="Karty" IsCheckable="false" Command="{Binding ViewChange}" CommandParameter="Karty">
+                  <MenuItem.Icon>
+                     <Image Style="{StaticResource Karty}" Height="18" Width="18"></Image>
+                  </MenuItem.Icon> 
+                  </MenuItem>
+                  <MenuItem Header="Zgłoszenie" IsCheckable="false" Command="{Binding ViewChange}" CommandParameter="Zgłoszenie">
+                  <MenuItem.Icon>
+                     <Image Style="{StaticResource Zgłoszenie}" Height="18" Width="18"></Image>
+                  </MenuItem.Icon> 
+                  </MenuItem>
+                  <MenuItem Header="Mapa" IsCheckable="false" Command="{Binding ViewChange}" CommandParameter="Mapa">
+                  <MenuItem.Icon>
+                     <Image Style="{StaticResource Mapa}" Height="18" Width="18"></Image>
+                  </MenuItem.Icon> 
+                  </MenuItem>
+                  <MenuItem Header="Statystyki" IsCheckable="false" Command="{Binding ViewChange}" CommandParameter="Statystyki">
+                  <MenuItem.Icon>
+                     <Image Style="{StaticResource Statystyki}" Height="18" Width="18"></Image>
+                  </MenuItem.Icon> 
+                  </MenuItem>
+         </MenuItem>
+
+         <MenuItem IsEnabled="false" Header="Ustawienia" Command="{Binding Opcje}">
+         </MenuItem>
+
+         <MenuItem Header="O programie" Command="{Binding Oprogramie}">
+         </MenuItem> 
+                              
+      </Menu>
+
+         <Button Grid.Row="1" Grid.Column="0" Command="{Binding NoweZgłoszenie}" Height = "35" Width="35" ToolTip="Dodaj nowe zgłoszenie">
+            <Image Source="/View/Pictures/New.png" Height="24" Width="24"></Image>
+         </Button>
+         <Button Grid.Row="1" Grid.Column="1" Height = "35" Width="0.5" HorizontalAlignment="Left"/>
+         <Button Grid.Row="1" Grid.Column="1" Command="{Binding Edytuj}" IsEnabled="{Binding CanEdytujBool}" Height = "35" Width="35" ToolTip="Edytuj zgłoszenie" HorizontalAlignment="Right">
+            <Image Source="/View/Pictures/Edycja.png" Height="24" Width="24"></Image>
+         </Button>
+
+
+         <Button Grid.Row="1" Grid.Column="2" Command="{Binding Mailem}" Height = "35" Width="35" ToolTip="Wyślij zgłoszenie mailem" IsEnabled="{Binding CanEdytujBool}">
+            <Image Source="/View/Pictures/Mail.png" Height="24" Width="24"></Image>
+         </Button>
+         <Button Grid.Row="1" Grid.Column="3" Command="{Binding UpdateZgłoszenie}" Height = "35" Width="35" ToolTip="Zgłoś wykonanie" IsEnabled="{Binding CanEdytujBool}">
+            <Image Source="/View/Pictures/Zgłoś.png" Height="24" Width="24"></Image>
+         </Button>
+         <!--<Button Grid.Row="1" Grid.Column="4" Command="{Binding Obserwowane}" Height = "35" Width="35" ToolTip="Dodaj/usuń z obserwowanych">
+            <Image Source="/View/Pictures/DodajObserwowane.png" Height="24" Width="24"></Image>
+         </Button>-->
+
+         <Button Grid.Row="1" Grid.Column="4" Height = "35" Width="0.5" HorizontalAlignment="Left"/>
+         <Button Grid.Row="1" Grid.Column="4" Command="{Binding PokażMoje}" Height = "35" Width="35" ToolTip="Moje zgłoszenia" HorizontalAlignment="Right">
+            <Image Style="{StaticResource Moje-zgłoszenia}" Height="24" Width="24"></Image>
+         </Button>
+         
+         <Button Grid.Row="1" Grid.Column="5" Command="{Binding PokażObserwowane}" Height = "35" Width="35" ToolTip="Obserwowane zgłoszenia" HorizontalAlignment="Right">
+            <Image Style="{StaticResource Obserwowane-zgłoszenia}" Height="24" Width="24"></Image>
+         </Button> 
+
+         <Button Grid.Row="1" Grid.Column="6" Command="{Binding Szukaj}" Height = "35" Width="35" ToolTip="Filtruj" HorizontalAlignment="Right" Click="Filtruj_Click">
+            <Image Style="{StaticResource Filter-zgłoszenia}" Height="24" Width="24"></Image>
+            <Button.ContextMenu>
+                  <ContextMenu x:Name="cmFiltruj">
+                     <MenuItem Header="Nowy filtr" Command="{Binding Filtruj}" CommandParameter="Nowy filtr" IsCheckable="false">
+                        <MenuItem.Icon>
+                           <Image Source="/View/Pictures/NowyFiltr.png" Height="18" Width="18"></Image>
+                        </MenuItem.Icon> 
+                     </MenuItem>
+                     <MenuItem Header="Wyczyść filtrowanie" Command="{Binding Filtruj}" CommandParameter="Wyczyść filtrowanie" IsCheckable="false">
+                        <MenuItem.Icon>
+                           <Image Source="/View/Pictures/UsuńFiltr.png" Height="18" Width="18"></Image>
+                        </MenuItem.Icon>                      
+                     </MenuItem>
+                  </ContextMenu>
+            </Button.ContextMenu>  
+         </Button>
+
+         <Button Grid.Row="1" Grid.Column="7" Height = "35" Width="0.5" HorizontalAlignment="Left"/>   
+
+         <Button Grid.Row="1" Grid.Column="7" Height = "35" Width="35" ToolTip="Grupuj" x:Name="Grupuj" HorizontalAlignment="Right" Click="Grupuj_Click">
+            <Image Source="/View/Pictures/Group.png" Height="24" Width="24"/>
+            <Button.ContextMenu>
+                  <ContextMenu x:Name="cmGrupuj">
+                     <MenuItem Header="Nie grupuj" Command="{Binding Grupuj}" CommandParameter="" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter=''}"/>
+                     <Separator />
+                     <MenuItem Header="Grupuj wg działów" Command="{Binding Grupuj}" CommandParameter="MiejsceZdarzenia" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='MiejsceZdarzenia'}"/>
+                     <MenuItem Header="Grupuj wg odpowiedzialnych" Command="{Binding Grupuj}" CommandParameter= "Odpowiedzialny" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='Odpowiedzialny'}"/>
+                     <MenuItem Header="Grupuj wg wykonania działań" Command="{Binding Grupuj}" CommandParameter="Wykonane" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='Wykonane'}"/>
+                     <MenuItem Header="Grupuj wg ryzyka" Command="{Binding Grupuj}" CommandParameter="SkutkiSkala" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='SkutkiSkala'}"/>
+                     <MenuItem Header="Grupuj wg rodzaju zagrożeń" Command="{Binding Grupuj}" CommandParameter="RodzajZagrożeń" IsCheckable="true" IsChecked="{Binding Grupowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='RodzajZagrożeń'}"/>
+                  </ContextMenu>
+            </Button.ContextMenu>                        
+         </Button>
+         <Button Grid.Row="1" Grid.Column="8" Height = "35" Width="35" ToolTip="Sortuj" Click="Sortuj_Click">
+            <Image Source="/View/Pictures/Sort.png" Height="24" Width="24"></Image>
+            <Button.ContextMenu>
+                  <ContextMenu x:Name="cmSortuj">
+                     <MenuItem Header="Rosnąco" Command="{Binding Sortuj}" CommandParameter="Rosnąco" IsChecked="{Binding AscSort, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                     <MenuItem Header="Malejąco" Command="{Binding Sortuj}" CommandParameter="Malejąco" IsChecked="{Binding AscSort, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BoolReverseConverter}}"/>
+                     <Separator />                        
+                     <MenuItem Header="Sortuj wg daty zgłoszenia" Command="{Binding Sortuj}" CommandParameter="DataZgł" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='DataZgł'}"/>
+                     <MenuItem Header="Sortuj wg działów" Command="{Binding Sortuj}" CommandParameter="MiejsceZdarzenia" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='MiejsceZdarzenia'}"/>
+                     <MenuItem Header="Sortuj wg odpowiedzialnych" Command="{Binding Sortuj}" CommandParameter= "Odpowiedzialny" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='Odpowiedzialny'}"/>
+                     <MenuItem Header="Sortuj wg wykonania działań" Command="{Binding Sortuj}" CommandParameter="Wykonane" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='Wykonane'}"/>
+                     <MenuItem Header="Sortuj wg ryzyka" Command="{Binding Sortuj}" CommandParameter="SkutkiSkala" IsCheckable="true"  IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='SkutkiSkala'}"/>
+                     <MenuItem Header="Sortuj wg rodzaju zagrożeń" Command="{Binding Sortuj}" CommandParameter="RodzajZagrożeń" IsCheckable="true" IsChecked="{Binding Sortowanie, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NameToBoolConverter}, ConverterParameter='RodzajZagrożeń'}"/>
+                  </ContextMenu>
+            </Button.ContextMenu>   
+         </Button>  
+         <Border x:Name="SearchBorder" Grid.Row="1" Grid.Column="9" BorderBrush="#6994B8" BorderThickness="0.75" Height="35" Margin="5" CornerRadius="15">
+            <WrapPanel>
+            <Image Source="/View/Pictures/Search.png " Margin="4,4,0,0" Height="24" Width="24"/>
+            <Grid>
+                  <TextBlock Margin="2,4,0,0" Foreground="DarkRed" FontSize="20" Text="{Binding ElementName=SzukajTextBox, Path=Text, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NoStringConverter}}"/>
+                  <TextBox Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Margin="2,4,0,0" BorderThickness="0" 
+                     Background="Transparent"
+                     Width="{Binding ElementName=SearchBorder, Path=ActualWidth, Converter={StaticResource StrechToConverter}}"
+                     x:Name="SzukajTextBox">
+                     <!--<TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding Szukaj}" CommandParameter="{Binding ElementName=SzukajTextBox}"/>
+                     </TextBox.InputBindings>-->
+                     <i:Interaction.Triggers>
+                              <i:EventTrigger EventName="KeyUp">
+                                 <i:InvokeCommandAction Command="{Binding Szukaj}"/>
+                              </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                  </TextBox>
+            </Grid>
+         </WrapPanel>
+         </Border>
+         
+         <Button Grid.Row="1" Grid.Column="10" Command="{Binding ViewChange}" CommandParameter="Tabela" Height = "35" Width="35" ToolTip="Widok tabeli" HorizontalAlignment="Right">
+            <Image Style="{StaticResource Tabela}" Height="24" Width="24"></Image>
+         </Button>
+         <Button Grid.Row="1" Grid.Column="11" Command="{Binding ViewChange}" CommandParameter="Lista" Height = "35" Width="35" ToolTip="Widok listy">
+            <Image Style="{StaticResource Lista}" Height="24" Width="24"></Image>
+         </Button>                    
+         <Button Grid.Row="1" Grid.Column="12" Command="{Binding ViewChange}" CommandParameter="Karty" Height = "35" Width="35" ToolTip="Widok kafelków">
+            <Image Style="{StaticResource Karty}" Height="24" Width="24"></Image>
+         </Button>
+         <Button Grid.Row="1" Grid.Column="13" Command="{Binding ViewChange}" CommandParameter="Zgłoszenie" Height = "35" Width="35" ToolTip="Widok zgłoszenia">
+            <Image Style="{StaticResource Zgłoszenie}" Height="24" Width="24"></Image>
+         </Button>                    
+         <Button Grid.Row="1" Grid.Column="14" Command="{Binding ViewChange}" CommandParameter="Mapa" Height = "35" Width="35" ToolTip="Widok mapy">
+            <Image Style="{StaticResource Mapa}" Height="24" Width="24"></Image>
+         </Button>
+         <Button Grid.Row="1" Grid.Column="15" Command="{Binding ViewChange}" CommandParameter="Statystyki" Height = "35" Width="35" ToolTip="Widok statystyk">
+            <Image Style="{StaticResource Statystyki}" Height="24" Width="24"></Image>
+         </Button>
+
+         <Button Grid.Row="1" Grid.Column="16" Height = "35" Width="0.5" HorizontalAlignment="Left"/>
+         <Button IsEnabled="false" Grid.Row="1" Grid.Column="16" Command="{Binding Opcje}" Height = "35" Width="35" ToolTip="Ustawienia"  HorizontalAlignment="Right">
+            <Image Source="/View/Pictures/Opcje.png" Height="24" Width="24"></Image>
+         </Button>
+         <Button Grid.Row="1" Grid.Column="17" Command="{Binding Oprogramie}" Height = "35" Width="35" ToolTip="O programie">
+            <Image Source="/View/Pictures/O.png" Height="24" Width="24"></Image>
+         </Button>
+   </Grid>   
+   
+</UserControl>

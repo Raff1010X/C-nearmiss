@@ -1,0 +1,186 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <NoWarn>NU1701</NoWarn>
+    <NoWarn>SYSLIB0011</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <Optimize>true</Optimize>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Prefer32Bit>false</Prefer32Bit>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <OutputPath>.\bin\Release\net5.0-windows\win10-x64\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <SelfContained>true</SelfContained>
+    <NoWarn>NU1701</NoWarn>
+    <NoWarn>SYSLIB0011</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <Optimize>true</Optimize>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <Prefer32Bit>false</Prefer32Bit>
+    <RuntimeIdentifier>win10-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <OutputPath>.\bin\Debug\net5.0-windows\win10-x64\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>portable</DebugType>
+    <NoWarn>NU1701</NoWarn>
+    <NoWarn>SYSLIB0011</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\Montserrat-Bold.ttf" />
+    <None Remove="Fonts\Montserrat-Light.ttf" />
+    <None Remove="Fonts\Montserrat-Regular.ttf" />
+    <None Remove="View\Map.jpg" />
+    <None Remove="View\MiniMap.jpg" />
+    <None Remove="View\Close.png" />
+    <None Remove="View\Min.png" />
+    <None Remove="View\Pictures\Load.png" />
+    <None Remove="View\Pictures\Close.png" />
+    <None Remove="View\Pictures\Min.png" />
+    <None Remove="View\Pictures\Max.png" />
+    <None Remove="View\Pictures\Pin.png" />
+    <None Remove="View\Pictures\PinG.png" />
+    <None Remove="View\Pictures\PinM.png" />
+    <None Remove="View\Pictures\PinGM.png" />
+    <None Remove="View\Pictures\trend-glass-logo.png" />
+    <None Remove="View\Pictures\startSplash.png" />
+    <None Remove="View\Pictures\trend-glass-logoO.png" />
+    <None Remove="View\Pictures\New.png" />
+    <None Remove="View\Pictures\Search.png" />
+    <None Remove="View\Pictures\O.png" />    
+    <None Remove="View\Pictures\Filter.png" />
+    <None Remove="View\Pictures\FilterSelected.png" />
+    <None Remove="View\Pictures\Group.png" />
+    <None Remove="View\Pictures\Sort.png" />    
+    <None Remove="View\Pictures\Glass.png" />
+    <None Remove="View\Pictures\Pasek.png" />
+    <None Remove="View\Pictures\Mapa.png" />
+    <None Remove="View\Pictures\Edycja.png" />    
+    <None Remove="View\Pictures\Zgłoszenie.png" />
+    <None Remove="View\Pictures\Opcje.png" />
+    <None Remove="View\Pictures\Tabela.png" />
+    <None Remove="View\Pictures\Karty.png" />
+    <None Remove="View\Pictures\Lista.png" />
+    <None Remove="View\Pictures\Wykres.png" />   
+    <None Remove="View\Pictures\Wykres1.png" />   
+    <None Remove="View\Pictures\Wykres2.png" />   
+    <None Remove="View\Pictures\Wykres3.png" />   
+    <None Remove="View\Pictures\Wykres4.png" />   
+    <None Remove="View\Pictures\TabelaSelected.png" />
+    <None Remove="View\Pictures\KartySelected.png" />
+    <None Remove="View\Pictures\ListaSelected.png" />
+    <None Remove="View\Pictures\WykresSelected.png" />  
+    <None Remove="View\Pictures\ZgłoszenieSelected.png" />
+    <None Remove="View\Pictures\MapaSelected.png" />
+    <None Remove="View\Pictures\Moje.png" />     
+    <None Remove="View\Pictures\MojeSelected.png" />    
+    <None Remove="View\Pictures\Mail.png" />
+    <None Remove="View\Pictures\Zgłoś.png" />
+    <None Remove="View\Pictures\Obserwowane.png" />
+    <None Remove="View\Pictures\ObserwowaneSelected.png" />
+    <None Remove="View\Pictures\DodajObserwowane.png" />
+    <None Remove="View\Pictures\NowyFiltr.png" />
+    <None Remove="View\Pictures\UsuńFiltr.png" />
+    <None Remove="View\Pictures\ZoomIn.png" />
+    <None Remove="View\Pictures\ZoomOut.png" />
+    <None Remove="View\Pictures\Grab.cur" />
+    <None Remove="View\pins.jpg" />
+    <None Remove="ZPWdata.db" />
+    <None Remove="ZPWdata2.db" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Fonts\Montserrat-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\Montserrat-Light.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\Montserrat-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ZPWdata1.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ZPWdata2.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.90" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7">
+    <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
+    <PackageReference Include="System.DirectoryServices.AccountManagement" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Pictures\Load.png" />
+    <Resource Include="View\Pictures\Map.jpg" />
+    <Resource Include="View\Pictures\MiniMap.jpg" />
+    <Resource Include="View\Pictures\Close.png" />
+    <Resource Include="View\Pictures\Min.png" />
+    <Resource Include="View\Pictures\Max.png" />
+    <Resource Include="View\Pictures\trend-glass-logo.png" />
+    <Resource Include="View\Pictures\startSplash.png" />
+    <Resource Include="View\Pictures\trend-glass-logoO.png" />
+    <Resource Include="View\Pictures\Pin.png" />
+    <Resource Include="View\Pictures\PinM.png" />
+    <Resource Include="View\Pictures\PinG.png" />
+    <Resource Include="View\Pictures\PinGM.png" />
+    <Resource Include="View\Pictures\New.png" />
+    <Resource Include="View\Pictures\Search.png" />
+    <Resource Include="View\Pictures\O.png" />
+    <Resource Include="View\Pictures\Filter.png" />
+    <Resource Include="View\Pictures\FilterSelected.png" />
+    <Resource Include="View\Pictures\Group.png" />
+    <Resource Include="View\Pictures\Sort.png" />
+    <Resource Include="View\Pictures\Glass.png" />
+    <Resource Include="View\Pictures\Pasek.png" />
+    <Resource Include="View\Pictures\Mapa.png" />    
+    <Resource Include="View\Pictures\Edycja.png" />    
+    <Resource Include="View\Pictures\Zgłoszenie.png" />    
+    <Resource Include="View\Pictures\Opcje.png" />
+    <Resource Include="View\Pictures\Tabela.png" />
+    <Resource Include="View\Pictures\Karty.png" />
+    <Resource Include="View\Pictures\Lista.png" />
+    <Resource Include="View\Pictures\Wykres.png" />   
+    <Resource Include="View\Pictures\Wykres1.png" />   
+    <Resource Include="View\Pictures\Wykres2.png" />   
+    <Resource Include="View\Pictures\Wykres3.png" />   
+    <Resource Include="View\Pictures\Wykres4.png" />   
+    <Resource Include="View\Pictures\TabelaSelected.png" />
+    <Resource Include="View\Pictures\KartySelected.png" />
+    <Resource Include="View\Pictures\ListaSelected.png" />
+    <Resource Include="View\Pictures\WykresSelected.png" /> 
+    <Resource Include="View\Pictures\MapaSelected.png" />    
+    <Resource Include="View\Pictures\ZgłoszenieSelected.png" />      
+    <Resource Include="View\Pictures\Moje.png" />
+    <Resource Include="View\Pictures\MojeSelected.png" />
+    <Resource Include="View\Pictures\Mail.png" />
+    <Resource Include="View\Pictures\Zgłoś.png" />
+    <Resource Include="View\Pictures\Obserwowane.png" />
+    <Resource Include="View\Pictures\ObserwowaneSelected.png" />
+    <Resource Include="View\Pictures\DodajObserwowane.png" />
+    <Resource Include="View\Pictures\NowyFiltr.png" />
+    <Resource Include="View\Pictures\UsuńFiltr.png" />
+    <Resource Include="View\Pictures\ZoomIn.png" />
+    <Resource Include="View\Pictures\ZoomOut.png" />
+  </ItemGroup>
+
+</Project>

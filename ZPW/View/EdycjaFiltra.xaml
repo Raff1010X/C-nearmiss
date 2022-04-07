@@ -1,0 +1,263 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    
+ 
+    xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+       
+        xmlns:vm="clr-namespace:ZPW.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=vm:ZPW}"
+    mc:Ignorable="d"
+    x:Class="ZPW.View.EdycjaFiltra"
+    
+    Title="Edycja filtra" 
+    Height="630" 
+    Width="820" 
+    Icon="/View/Pictures/trend-glass-logo.png" 
+    Style="{StaticResource MyWindowStyle}"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    x:Name="Filtry"
+    >
+
+    <Grid DataContext="{StaticResource zpw}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <DockPanel MouseDown="DockPanel_MouseDown">
+            <Image Source="/View/Pictures/trend-glass-logo.png" Height="30" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,5,5,5" RenderOptions.BitmapScalingMode="Fant"/>
+            <TextBlock Text="Edycja filtra" FontSize="18" VerticalAlignment="Center" Foreground="White" Margin="10,0,0,0"/>
+            <Button Click="AnulujButton_Click"  Margin="0,0,0,0" BorderThickness="0" HorizontalAlignment="Right" Width="60" FontSize="22" Foreground="White" Background="Transparent">
+                <Image Source="/View/Pictures/Close.png"></Image>
+            </Button>
+            <DockPanel.Background>
+                <ImageBrush ImageSource="/View/Pictures/Pasek.png" Stretch="UniformToFill"/>
+            </DockPanel.Background> 
+        </DockPanel>
+
+
+        <Grid Grid.Row="1" Grid.Column="0"  Background="#104068">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+
+            <Grid Grid.Row="0" Grid.Column="0"  Background="White" Margin="1,0,1,1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="5" />
+                </Grid.RowDefinitions>
+                
+                <Grid Grid.Column="1" Grid.Row="1">
+
+                    <Grid Background="AliceBlue">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="405" />
+                            <ColumnDefinition Width="0" />
+                            <ColumnDefinition Width="405" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="45" />
+                        </Grid.RowDefinitions>
+
+                        
+                        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Wybierz kryteria wyszukiwania" FontSize="20" Margin="5,5,0,0"/>
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            
+                            <GroupBox Grid.Row="1" Grid.Column="0" Header="Dział zgłaszający zagrożenie">
+                                <vm:MultipleSelectionListBox x:Name="ComboKto"
+                                    ItemsSource="{Binding DziałyKtoZgłasza}"
+                                    BindableSelectedItems="{Binding Path=CurrentFiltr.FiltrDział, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ToolTip="Wybierz z listy" SelectionMode="Multiple" Height="147" Margin="0,3,0,0">
+                                </vm:MultipleSelectionListBox>
+                            </GroupBox>
+
+                            <GroupBox Grid.Row="2" Grid.Column="0" Header="Kiedy zdarzenie mało miejsce" Height="135" >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="15,10,0,5">
+                                        <CheckBox x:Name="CheckBox_1" Margin="0" VerticalAlignment="Center"
+                                            IsChecked="{Binding Path=CurrentFiltr.FiltrWgDat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Command="{Binding FiltrujWgDaty}" CommandParameter="Daty"/>
+                                        <TextBlock Text="- pokaż zgłoszenia z zakresu dat:  " VerticalAlignment="Center"/>                                    
+                                    </StackPanel>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Data od:"/>
+                                    <DatePicker Grid.Row="2" Grid.Column="0" IsEnabled="{Binding ElementName=CheckBox_1, Path=IsChecked}"
+                                        Text="{Binding CurrentFiltr.FiltrDataOd, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Data do:"/>
+                                    <DatePicker Grid.Row="2" Grid.Column="1"  IsEnabled="{Binding ElementName=CheckBox_1, Path=IsChecked}"
+                                        Text="{Binding CurrentFiltr.FiltrDataDo, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
+                                    
+                                    <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="15,5,0,0">
+                                        <CheckBox  x:Name="CheckBox_2" Margin="0" VerticalAlignment="Center"
+                                            IsChecked="{Binding Path=CurrentFiltr.FiltrWgDni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Command="{Binding FiltrujWgDaty}" CommandParameter="Dni"/>                                        
+                                        <TextBlock Text="- pokaż zgłoszenia z ostatnich" VerticalAlignment="Center"/>
+                                        <ComboBox VerticalAlignment="Bottom" Width="70"  IsEnabled="{Binding ElementName=CheckBox_2, Path=IsChecked}"
+                                            ItemsSource="{Binding LiczbaDni, Mode=OneWay}"
+                                            SelectedItem="{Binding CurrentFiltr.FiltrLiczbaDni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        <TextBlock Text=" dni." VerticalAlignment="Center"/>
+
+                                    </StackPanel>
+                                    
+
+                                </Grid>
+                            </GroupBox>
+
+                            <GroupBox Grid.Row="3" Grid.Column="0" Header="Miejsce zdarzenia, dział">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <vm:MultipleSelectionListBox Grid.Row="1" x:Name="ComboMiejsce"
+                                    ItemsSource="{Binding DziałyMiejsce}"
+                                    BindableSelectedItems="{Binding Path=CurrentFiltr.FiltrMiejsce, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ToolTip="Wybierz z listy" SelectionMode="Multiple" Height="147" Margin="0,3,0,0">
+                                    </vm:MultipleSelectionListBox>
+
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                        
+                        <Grid Grid.Row="1" Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <GroupBox Grid.Row="0" Grid.Column="0" Header="Rodzaj zagrożenia">
+                                <vm:MultipleSelectionListBox x:Name="ComboZagrożenia"
+                                    ToolTip="Wybierz z listy"
+                                    ItemsSource="{Binding Zagrożenia}"
+                                    BindableSelectedItems="{Binding Path=CurrentFiltr.FiltrRodzajZagrożenia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectionMode="Multiple" Height="147" Margin="0,3,0,0">
+                                </vm:MultipleSelectionListBox>
+                            </GroupBox>
+
+                            <GroupBox Grid.Row="1" Grid.Column="0" Header="Ocena skutków zdarzenia"  Height="135">
+                                <vm:MultipleSelectionListBox x:Name="ComboSkutki"
+                                    ToolTip="Wybierz z listy"
+                                    ItemsSource="{Binding Skutki}"
+                                    BindableSelectedItems="{Binding Path=CurrentFiltr.FiltrSkutki, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectionMode="Multiple" Margin="0,3,0,0">
+                                </vm:MultipleSelectionListBox>
+                            </GroupBox>
+
+                            <GroupBox Grid.Row="2" Grid.Column="0" Header="Odpowiedzialny za wykonanie działań">
+                                <vm:MultipleSelectionListBox x:Name="ComboOdpowiedzialny"
+                                    ToolTip="Wybierz z listy"
+                                    ItemsSource="{Binding Odpowiedzialni}"
+                                    BindableSelectedItems="{Binding Path=CurrentFiltr.FiltrOdpowiedzialni, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectionMode="Multiple" Height="147" Margin="0,3,0,0">
+                                </vm:MultipleSelectionListBox>
+                            </GroupBox>
+                        </Grid>
+
+                        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <Button x:Name="AnulujButton" 
+                                    Click="AnulujButton_Click" 
+                                    Grid.Row="0" 
+                                    Grid.Column="0" 
+                                    Content="Anuluj"
+                            />
+                            <Button x:Name="ZapiszJakoObserwowane" 
+                                    Command="{Binding ZapiszFiltr}"
+                                    CommandParameter="ZapiszJakoObserwowane"
+                                    Grid.Row="0" 
+                                    Grid.Column="1" 
+                                    Content="Zapisz jako OBSERWOWANE"
+                            />
+                            <Button 
+                                    Command="{Binding ZapiszFiltr}"
+                                    x:Name="Zapisz" 
+                                    CommandParameter="ZapiszJakoNowyFiltr"
+                                    Grid.Row="0" 
+                                    Grid.Column="2" 
+                                    Content="Pokaż wyniki filtrowania"
+                            />
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    <Border Grid.Row="1" Grid.Column="0" BorderBrush="#104068" CornerRadius="0,0,6,6" BorderThickness="1,0,1,1"/>
+    <Border Grid.Row="1" Grid.Column="0" BorderBrush="#104068" CornerRadius="0,0,7,7" BorderThickness="1,0,1,1"/>
+
+    </Grid>
+
+</Window>

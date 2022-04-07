@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="App.xaml.cs"/>
+    <Compile Update="View\ImageViewer.xaml.cs"/>
+    <Compile Update="View\Mapa.xaml.cs"/>
+    <Compile Update="View\MiniMap.xaml.cs"/>
+    <Compile Update="View\StartSplash.xaml.cs"/>
+    <Compile Update="View\ZPWRepisitory.xaml.cs"/>
+    <Compile Update="View\OProgramie.xaml.cs"/>
+    <Compile Update="View\EdycjaFiltra.xaml.cs"/>
+    <Compile Update="View\Kontrolki\Menu1.xaml.cs"/>
+    <Compile Update="View\Kontrolki\ViewTabela.xaml.cs"/>
+    <Compile Update="View\Kontrolki\ViewMapa.xaml.cs"/>
+    <Compile Update="View\Kontrolki\ViewLista.xaml.cs"/>
+    <Compile Update="View\Kontrolki\ViewKafle.xaml.cs"/>
+    <Compile Update="View\Kontrolki\ViewZgłoszenie.xaml.cs"/>
+    <Compile Update="View\Kontrolki\ViewStatystyki.xaml.cs"/>
+    <Compile Update="View\Kontrolki\Chart0.xaml.cs"/>
+    <Compile Update="View\Kontrolki\Chart1.xaml.cs"/>
+    <Compile Update="View\Kontrolki\Chart2.xaml.cs"/>
+    <Compile Update="View\Kontrolki\Chart3.xaml.cs"/>
+    <Compile Update="View\Kontrolki\Chart4.xaml.cs"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="View\ImageViewer.xaml"/>
+    <Page Update="View\Mapa.xaml"/>
+    <Page Update="View\MiniMap.xaml"/>
+    <Page Update="View\ZPWRepisitory.xaml"/>
+    <Page Update="View\ZPWView.xaml"/>
+    <Page Update="View\StartSplash.xaml"/>
+    <Page Update="View\OProgramie.xaml"/>
+    <Page Update="View\EdycjaFiltra.xaml"/>
+    <Page Update="View\Kontrolki\Menu1.xaml"/>
+    <Page Update="View\Kontrolki\ViewTabela.xaml"/>
+    <Page Update="View\Kontrolki\ViewMapa.xaml"/>
+    <Page Update="View\Kontrolki\ViewLista.xaml"/>
+    <Page Update="View\Kontrolki\ViewKafle.xaml"/>
+    <Page Update="View\Kontrolki\ViewZgłoszenie.xaml"/>
+    <Page Update="View\Kontrolki\ViewStatystyki.xaml"/>
+    <Page Update="View\Kontrolki\Chart0.xaml"/>
+    <Page Update="View\Kontrolki\Chart1.xaml"/>
+    <Page Update="View\Kontrolki\Chart2.xaml"/>
+    <Page Update="View\Kontrolki\Chart3.xaml"/>
+    <Page Update="View\Kontrolki\Chart4.xaml"/>
+  </ItemGroup>
+
+</Project>

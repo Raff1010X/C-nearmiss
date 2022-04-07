@@ -1,0 +1,98 @@
+<UserControl x:Class = "ZPW.View.Kontrolki.ViewStatystyki" 
+   xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+   xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" 
+   xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"  
+   xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"  
+   mc:Ignorable = "d" d:DesignHeight = "300" d:DesignWidth = "300"
+   
+   xmlns:controls="clr-namespace:ZPW.View.Kontrolki"
+   xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+   xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+
+   >
+
+
+
+    <Grid DataContext="{StaticResource zpw}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>            
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Column="1" Grid.Row="1" Cursor="Hand" Background="White">
+            <Border CornerRadius="3"  
+                    BorderThickness="1"  
+                    Background="White"  
+                    BorderBrush="darkgray">
+                <Image Source = "/View/Pictures/Wykres1.png">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding ChartChange}" CommandParameter="1"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image> 
+            </Border>       
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="3" Cursor="Hand" Background="White">
+            <Border CornerRadius="3"  
+                    BorderThickness="1"  
+                    Background="White"  
+                    BorderBrush="darkgray">
+                <Image Source = "/View/Pictures/Wykres2.png">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding ChartChange}" CommandParameter="2"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+            </Border>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="5" Cursor="Hand" Background="White">
+            <Border CornerRadius="3"  
+                    BorderThickness="1"  
+                    Background="White"  
+                    BorderBrush="darkgray">            
+                <Image Source = "/View/Pictures/Wykres3.png">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding ChartChange}" CommandParameter="3"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+            </Border>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="7" Cursor="Hand" Background="White">
+            <Border CornerRadius="3"  
+                    BorderThickness="1"  
+                    Background="White"  
+                    BorderBrush="darkgray">
+                <Image Source = "/View/Pictures/Wykres4.png">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseLeftButtonUp">
+                            <i:InvokeCommandAction Command="{Binding ChartChange}" CommandParameter="4"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Image>
+            </Border>
+         </Grid>
+        <Grid Grid.Column="3" Grid.Row="0" Grid.RowSpan="9">
+            <ContentControl Content="{Binding Path=UChart0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
+    </Grid>
+
+
+</UserControl>
